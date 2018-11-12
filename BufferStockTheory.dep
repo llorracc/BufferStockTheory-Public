@@ -131,16 +131,16 @@
   *{file}   {Equations/GIC.tex}{0000/00/00 v0.0}
   *{file}   {Equations/FVAC.tex}{0000/00/00 v0.0}
   *{file}   {./Tables/Calibration.tex}{0000/00/00 v0.0}
-  *{file}   {Figures/cFuncsConverge.pdf}{0000/00/00 v0.0}
+  *{file}   {Code/Python/Figures/cFuncsConverge.pdf}{0000/00/00 v0.0}
   *{file}   {ueus.fd}     {2013/01/14 v3.01}
   *{file}   {ueuf.fd}     {2013/01/14 v3.01}
-  *{file}   {Figures/FVACnotGIC.pdf}{0000/00/00 v0.0}
+  *{file}   {Code/Python/Figures/FVACnotGIC.pdf}{0000/00/00 v0.0}
   *{file}   {./Tables/Comparison.tex}{0000/00/00 v0.0}
   *{file}   {./Tables/Required.tex}{0000/00/00 v0.0}
-  *{file}   {Figures/cGroTargetFig.pdf}{0000/00/00 v0.0}
-  *{file}   {Figures/cFuncBounds.pdf}{0000/00/00 v0.0}
-  *{file}   {Figures/cRatTargetFig.pdf}{0000/00/00 v0.0}
-  *{file}   {Figures/SimCDFsConverge.pdf}{0000/00/00 v0.0}
+  *{file}   {Code/Python/Figures/cGroTargetFig.pdf}{0000/00/00 v0.0}
+  *{file}   {Code/Python/Figures/cFuncBounds.pdf}{0000/00/00 v0.0}
+  *{file}   {Code/Python/Figures/cRatTargetFig.pdf}{0000/00/00 v0.0}
+  *{file}   {Code/Python/Figures/SimCDFsConverge.pdf}{0000/00/00 v0.0}
   *{file}   {.//ApndxLiqConstr.tex}{0000/00/00 v0.0}
   *{file}   {./Tables/LiqConstrScenarios.tex}{0000/00/00 v0.0}
   *{file}   {.//ApndxSolnMethEndogGpts.tex}{0000/00/00 v0.0}

@@ -1,14 +1,13 @@
-The jupyter notebook BufferStockTheory.ipynb and the ipython script BufferStockTheory.py are an example of a 
-[jupytext](https://github.com/mwouts/jupytext) `paired notebook` 
 
-From a computer with the jupyter notebook software installed, just execute at the command line the command 
+The python version of the figures for the paper are generated using the [Econ-ARK/HARK](http://github.com/econ-ark/HARK) toolkit.
+Install the toolkit following the instructions on the GitHub site and then either:
 
-	`jupyter notebook` 
-	
-and navigate to the directory containing BufferStockTheory.py
+1. Run the interactive [Jupyter notebook](http://jupyter.org/install)  BufferStockTheory.ipynb
 
-Or, assuming you have ipython installed on your computer, from the command line, execute the command 
+or 
 
-	`ipython BufferStockTheory.py`
-	
+2. Run the standalone python code using 
+    `ipython BufferStockTheory.py`
+
+
 	
