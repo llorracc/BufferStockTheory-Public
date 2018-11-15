@@ -306,9 +306,7 @@ GICFailExample.timeFwd()
 
 
 # "Sustainable" consumption leaves expected m unchanged.
-InvEpShInvAct = 0
-for i in range(len(GICFailExample.PermShkDstn[0][0])):
-    InvEpShInvAct += GICFailExample.PermShkDstn[0][0][i] * (GICFailExample.PermShkDstn[0][1][i]**(-1))
+InvEpShInvAct = np.dot(GICFailExample.PermShkDstn[0][0], GICFailExample.PermShkDstn[0][1]**(-1))
 InvInvEpShInvAct = (InvEpShInvAct) ** (-1)
 PermGroFacAct = GICFailExample.PermGroFac[0] * InvInvEpShInvAct
 ER = GICFailExample.Rfree / PermGroFacAct
