@@ -443,12 +443,8 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
     '''
 
     # r is the distance spanned between pairs of points
-    r = [0]
-    for i in range(1,len(x)):
-        dx = x[i]-x[i-1]
-        dy = y[i]-y[i-1]
-        r.append(np.sqrt(dx*dx+dy*dy))
-    r = np.array(r)
+    r = np.sqrt(np.diff(x)**2+np.diff(y)**2)
+    r = np.insert(r, 0, 0.0)
 
     # rtot is a cumulative sum of r, it's used to save time
     rtot = []
