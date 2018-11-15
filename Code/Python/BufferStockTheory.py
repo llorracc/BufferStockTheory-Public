@@ -1,9 +1,38 @@
+# -*- coding: utf-8 -*-
+# ---
+# jupyter:
+#   '@webio':
+#     lastCommId: 49dc3e92a7cf49d3aba7e67143a65bb5
+#     lastKernelId: f65d24a7-4c4a-40b8-934b-b5129e476534
+#   jupytext:
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.1'
+#       jupytext_version: 0.8.3
+#   kernelspec:
+#     display_name: Python 3
+#     language: python
+#     name: python3
+#   language_info:
+#     codemirror_mode:
+#       name: ipython
+#       version: 3
+#     file_extension: .py
+#     mimetype: text/x-python
+#     name: python
+#     nbconvert_exporter: python
+#     pygments_lexer: ipython3
+#     version: 3.6.5
+# ---
+
+# %%
 
 # coding: utf-8
 
 # # Theoretical Foundations of Buffer Stock Saving
 #
-# This notebook uses the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit to reproduce all of the figures in the paper [Theoretical Foundations of Buffer Stock Saving](http://econ.jhu.edu/people/ccarroll/papers/BufferStockTheory).
+# This notebook uses the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit to reproduce all of the figures in the paper [Theoretical Foundations of Buffer Stock Saving](http://econ.jhu.edu/people/ccarroll/papers/BufferStockTheory). 
 
 # For instructions on how to install the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit, please refer to II. QUICK START GUIDE in [Heterogeneous Agents Resources and toolKit (HARK)](https://github.com/econ-ark/HARK/blob/master/README.md). Briefly, the recommended installation method is running `pip install econ-ark` in your terminal command line (MacOSX or Linux) or at the Windows command prompt (after installing python and pip for Windows).
 
@@ -11,7 +40,7 @@
 #
 # The main HARK model module used here is $\texttt{ConsIndShockModel.py}$, in which agents have CRRA utility over consumption and face idiosyncratic shocks to permanent and transitory income.  For an introduction to this module, see [ConsIndShockModel.ipynb](econ-ark.org/notebooks)
 
-# In[ ]:
+# %%
 
 
 # This cell does some setup and imports generic tools used to produce the figures
@@ -74,7 +103,7 @@ if not os.path.exists(Figures_HARK_dir):
 
 # Now we can start making the figures.  We start by importing the relevant subclass of $\texttt{AgentType}$ into our workspace.
 
-# In[ ]:
+# %%
 
 
 from HARK.ConsumptionSaving.ConsIndShockModel import IndShockConsumerType
@@ -96,9 +125,7 @@ from HARK.ConsumptionSaving.ConsIndShockModel import IndShockConsumerType
 # | $\sigma_\psi$ | Std Dev of Log Permanent Shock| $\texttt{PermShkStd}$ | 0.1 |
 # | $\sigma_\theta$ | Std Dev of Log Transitory Shock| $\texttt{TranShkStd}$ | 0.1 |
 
-# In[ ]:
-
-
+# %%
 
 
 # This cell defines a parameter dictionary for making an instance of IndShockConsumerType, which will be solved as the
@@ -139,7 +166,7 @@ baseline_bufferstock_dictionary = {
                     }
 
 
-# In[ ]:
+# %%
 
 
 # Create the baseline instance by passing the dictionary to the class.
@@ -154,7 +181,7 @@ BaselineExample.unpackcFunc()
 BaselineExample.timeFwd()
 
 
-# In[ ]:
+# %%
 
 
 # Now we start plotting the different periods' consumption rules.
@@ -208,9 +235,7 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'cFuncsConverge.svg'))
 # | $\sigma_\psi$ | Std Dev of Log Permanent Shock| $\texttt{PermShkStd}$ | 0.1 |
 # | $\sigma_\theta$ | Std Dev of Log Transitory Shock| $\texttt{TranShkStd}$ | 0.1 |
 
-# In[ ]:
-
-
+# %%
 
 
 # Define the corresponding dictionary to make an instance of IndShockConsumerType
@@ -249,33 +274,22 @@ GIC_fail_dictionary = { 'CRRA': 2,
                              }
 
 
-# In[ ]:
-
-
+# %%
 
 
 # Solve for the GICFailExample consumption function
 GICFailExample = IndShockConsumerType(**GIC_fail_dictionary)
 GICFailExample.cycles = 0 # Make this type have an infinite horizon
 
-
-# In[ ]:
-
-
+# %%
 # We've set up the problem so GIC is not satisfied. This can be checked by usign the method checkConditions
 GICFailExample.checkConditions()
 
-
-# In[ ]:
-
-
+# %%
 # or with more information
 GICFailExample.checkConditions(verbose=True)
 
-
-# In[ ]:
-
-
+# %%
 
 
 start_time = clock()
@@ -288,7 +302,7 @@ GICFailExample.timeFwd()
 
 # Next we define the function $\mathrm{\mathbb{E}}_{t}[\Delta m_{t+1}]$ that shows the ‘sustainable’ level of spending at which $m$ is expected to remain unchanged.
 
-# In[ ]:
+# %%
 
 
 # "Sustainable" consumption leaves expected m unchanged.
@@ -302,7 +316,7 @@ Er = ER - 1
 mSSfunc = lambda m : 1 + (m-1)*(Er/ER)
 
 
-# In[ ]:
+# %%
 
 
 # Plot GICFailExample consumption function against the sustainable level of consumption
@@ -331,10 +345,7 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'FVACnotGIC.svg'))
 
 # As a foundation for the remaining figures, we define another instance of the class $\texttt{IndShockConsumerType}$, which has the same parameter values as the instance $\texttt{BaselineExample}$ defined previously but is solved to convergence (our definition of an infinite horizon agent type)
 
-
-# In[ ]:
-
-
+# %%
 
 
 # Create the baseline infinite horizon converged consumption function
@@ -355,10 +366,7 @@ BaselineExample_inf.timeFwd()
 
 # The first step is about how to calculate the t+1 period expected consumption. We define an auxiliary function to calculate the expectation of t+1 period consumption given t end-of-period assets.
 
-
-# In[ ]:
-
-
+# %%
 
 
 # Define function to calculate expected consumption in t+1 period given assets at end of t.
@@ -384,9 +392,7 @@ def exp_consumption(a):
     return sum(part_expconsump_l)
 
 
-# In[ ]:
-
-
+# %%
 
 
 # Calculate the expected consumption growth factor
@@ -415,9 +421,7 @@ for i in range(len(a2)):
 growth2 = np.array(exp_consumption_l2)/c_m2
 
 
-# In[ ]:
-
-
+# %%
 
 
 # Define a function to construct the arrows on the consumption growth rate function
@@ -509,9 +513,7 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
                 arrowprops=dict( headwidth=hw, frac=1., ec=c, fc=c))
 
 
-# In[ ]:
-
-
+# %%
 
 
 # Plot consumption growth as a function of market resources
@@ -559,10 +561,7 @@ fig.savefig(os.path.join(Figures_HARK_dir, 'cGroTargetFig.svg'))
 
 # We define two useful variables: lower bound of $\kappa$ (marginal propensity to consume) and limit of $h$ (Human wealth), along with some functions such as perfect foresight consumption function ($\bar{c}(m)$), $\bar{\bar c}(m)$ and $\underline{c}(m)$.
 
-
-# In[ ]:
-
-
+# %%
 
 
 # Define k_lower, h_inf and perfect foresight consumption function, upper bound of consumption function and lower
@@ -576,9 +575,7 @@ intersect_m = ((h_inf-1)* k_lower)/((1 - BaselineExample_inf.UnempPrb
             **(1.0/BaselineExample_inf.CRRA)*(BaselineExample_inf.Rfree*BaselineExample_inf.DiscFac)**(1.0/BaselineExample_inf.CRRA)/BaselineExample_inf.Rfree)-k_lower)
 
 
-# In[ ]:
-
-
+# %%
 
 
 # Plot consumption function and its bounds
@@ -623,10 +620,7 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'cFuncBounds.svg'))
 
 # This figure shows the $\mathrm{\mathbb{E}}_{t}[\Delta m_{t+1}]$ and consumption function $c(m_{t})$, along with the intrsection of these two functions, which defines the target value of $m$
 
-
-# In[ ]:
-
-
+# %%
 
 
 # This just plots objects that have already been constructed
@@ -656,10 +650,7 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'cRatTargetFig.svg'))
 
 # ### Upper and Lower Limits of the Marginal Propensity to Consume
 
-
-# In[ ]:
-
-
+# %%
 
 
 # The last figure shows the upper and lower limits of the MPC
