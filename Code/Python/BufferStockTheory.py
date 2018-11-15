@@ -2,13 +2,13 @@
 # coding: utf-8
 
 # # Theoretical Foundations of Buffer Stock Saving
-# 
-# This notebook uses the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit to reproduce all of the figures in the paper [Theoretical Foundations of Buffer Stock Saving](http://econ.jhu.edu/people/ccarroll/papers/BufferStockTheory). 
+#
+# This notebook uses the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit to reproduce all of the figures in the paper [Theoretical Foundations of Buffer Stock Saving](http://econ.jhu.edu/people/ccarroll/papers/BufferStockTheory).
 
 # For instructions on how to install the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit, please refer to II. QUICK START GUIDE in [Heterogeneous Agents Resources and toolKit (HARK)](https://github.com/econ-ark/HARK/blob/master/README.md). Briefly, the recommended installation method is running `pip install econ-ark` in your terminal command line (MacOSX or Linux) or at the Windows command prompt (after installing python and pip for Windows).
 
 # If you are not familiar with the HARK toolkit, you may wish to browse the "Gentle Introduction" materials at [https://econ-ark.org/notebooks](https://econ-ark.org/notebooks) before continuing.  If you are not familiar with Jupyter notebooks, Google "jupyter notebooks" to find a tutorial.
-# 
+#
 # The main HARK model module used here is $\texttt{ConsIndShockModel.py}$, in which agents have CRRA utility over consumption and face idiosyncratic shocks to permanent and transitory income.  For an introduction to this module, see [ConsIndShockModel.ipynb](econ-ark.org/notebooks)
 
 # In[ ]:
@@ -25,7 +25,7 @@ mystr = lambda number : "{:.4f}".format(number)
 # which can be executed from a terminal command line via "ipython BufferStockTheory.py"
 # But a terminal does not permit inline figures, so we need to test jupyter vs terminal
 # Google "how can I check if code is executed in the ipython notebook"
-def in_ipynb(): 
+def in_ipynb():
     try:
         if str(type(get_ipython())) == "<class 'ipykernel.zmqshell.ZMQInteractiveShell'>":
             return True
@@ -33,8 +33,8 @@ def in_ipynb():
             return False
     except NameError:
         return False
-    
-# Determine whether to make the figures inline (for spyder or jupyter) 
+
+# Determine whether to make the figures inline (for spyder or jupyter)
 # vs whatever is the automatic setting that will apply if run from the terminal
 if in_ipynb():
     get_ipython().run_line_magic('matplotlib', 'inline')
@@ -57,7 +57,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # The tools for navigating the filesystem
-import sys 
+import sys
 import os
 
 sys.path.insert(0, os.path.abspath('../lib'))
@@ -85,7 +85,7 @@ from HARK.ConsumptionSaving.ConsIndShockModel import IndShockConsumerType
 # The first figure is in the section **The Baseline Numerical Solution**, which depicts the successive consumption rules that apply in the last period of life $(c_{T}(m))$, the second-to-last period, and various earlier periods under the baseline parameter values listed in Table 1 of the paper.
 
 # First of all, we define the calibrated parameters in table shown below (same as Table 1 in the paper) using a dictionary, which will also be used as the initial inputs for making an baseline instance of the class $\texttt{IndShockConsumerType}$.
-# 
+#
 # | Param | Description | Code | Value |
 # | :---: | ---         | ---  | :---: |
 # | $\Gamma$ | Permanent Income Growth Factor | $\texttt{PermGroFac}$ | 1.03 |
@@ -99,10 +99,12 @@ from HARK.ConsumptionSaving.ConsIndShockModel import IndShockConsumerType
 # In[ ]:
 
 
-# This cell defines a parameter dictionary for making an instance of IndShockConsumerType, which will be solved as the 
+
+
+# This cell defines a parameter dictionary for making an instance of IndShockConsumerType, which will be solved as the
 # baseline solution in the paper.
 
-baseline_bufferstock_dictionary = { 
+baseline_bufferstock_dictionary = {
                     'CRRA': 2,              # Coefficient of relative risk aversion
                     'Rfree': 1.04,          # Interest factor on assets
                     'DiscFac': 0.96,        # Time Preference Factor
@@ -179,7 +181,7 @@ plt.text(9.6,2.1,r'$c_{T-10}(m)$',fontsize = 22,fontweight='bold')
 plt.text(9.6,1.7,r'$c(m)$',fontsize = 22,fontweight='bold')
 plt.arrow(6.9,6.05,-0.6,0,head_width= 0.03,width=0.001,facecolor='black',length_includes_head='True')
 plt.tick_params(labelbottom=False, labelleft=False,left='off',right='off',bottom='off',top='off')
-plt.text(0,7.05,"$c$",fontsize = 26)    
+plt.text(0,7.05,"$c$",fontsize = 26)
 plt.text(11.1,0,"$m$",fontsize = 26)
 # Save the figures in several formats
 plt.savefig(os.path.join(Figures_HARK_dir, 'cFuncsConverge.png'))
@@ -192,10 +194,10 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'cFuncsConverge.svg'))
 
 # ### Example Solution when FVAC Holds but GIC Does Not
 
-# This figure is shown in the section **The GIC**. It depicts a solution when **FVAC** (Finite Value of Autarky Condition) holds (so that the model has a solution) but the **GIC** (Growth Impatience Condition) fails. 
+# This figure is shown in the section **The GIC**. It depicts a solution when **FVAC** (Finite Value of Autarky Condition) holds (so that the model has a solution) but the **GIC** (Growth Impatience Condition) fails.
 
 # The parameter values in this specific example are listed in the following table:
-# 
+#
 # | Param | Description | Code | Value |
 # | :---: | ---         | ---  | :---: |
 # | $\Gamma$ | Permanent Income Growth Factor | $\texttt{PermGroFac}$ | 1.00 |
@@ -209,7 +211,9 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'cFuncsConverge.svg'))
 # In[ ]:
 
 
-# Define the corresponding dictionary to make an instance of IndShockConsumerType 
+
+
+# Define the corresponding dictionary to make an instance of IndShockConsumerType
 # for the "GIC fails" example.
 GIC_fail_dictionary = { 'CRRA': 2,
                               'Rfree': 1.08,
@@ -248,9 +252,31 @@ GIC_fail_dictionary = { 'CRRA': 2,
 # In[ ]:
 
 
+
+
 # Solve for the GICFailExample consumption function
 GICFailExample = IndShockConsumerType(**GIC_fail_dictionary)
-GICFailExample.cycles = 0 # Make this type have an infinite horizon 
+GICFailExample.cycles = 0 # Make this type have an infinite horizon
+
+
+# In[ ]:
+
+
+# We've set up the problem so GIC is not satisfied. This can be checked by usign the method checkConditions
+GICFailExample.checkConditions()
+
+
+# In[ ]:
+
+
+# or with more information
+GICFailExample.checkConditions(verbose=True)
+
+
+# In[ ]:
+
+
+
 
 start_time = clock()
 GICFailExample.solve()
@@ -288,7 +314,7 @@ plt.plot(m,c_m,color="black")
 plt.plot(m,E_m,color="black")
 plt.xlim(0,5.5)
 plt.ylim(0,1.6)
-plt.text(0,1.63,"$c$",fontsize = 26)    
+plt.text(0,1.63,"$c$",fontsize = 26)
 plt.text(5.55,0,"$m$",fontsize = 26)
 plt.tick_params(labelbottom=False, labelleft=False,left='off',right='off',bottom='off',top='off')
 plt.text(1,0.6,"$c(m_{t})$",fontsize = 18)
@@ -305,7 +331,10 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'FVACnotGIC.svg'))
 
 # As a foundation for the remaining figures, we define another instance of the class $\texttt{IndShockConsumerType}$, which has the same parameter values as the instance $\texttt{BaselineExample}$ defined previously but is solved to convergence (our definition of an infinite horizon agent type)
 
+
 # In[ ]:
+
+
 
 
 # Create the baseline infinite horizon converged consumption function
@@ -326,17 +355,20 @@ BaselineExample_inf.timeFwd()
 
 # The first step is about how to calculate the t+1 period expected consumption. We define an auxiliary function to calculate the expectation of t+1 period consumption given t end-of-period assets.
 
+
 # In[ ]:
+
+
 
 
 # Define function to calculate expected consumption in t+1 period given assets at end of t.
 def exp_consumption(a):
     '''
     Taking end-of-period assets as input, return expectation of next period's consumption
-    
+
     Inputs:
        a: end-of-period assets
-       
+
     Returns:
        sum(part_expconsump_l): next period's expected consumption
     '''
@@ -344,7 +376,7 @@ def exp_consumption(a):
     for i in range(len(BaselineExample_inf.TranShkDstn[0][0])):
         for j in range(len(BaselineExample_inf.PermShkDstn[0][0])):
             GrowFactp1 = BaselineExample_inf.PermGroFac[0]* BaselineExample_inf.PermShkDstn[0][1][j]
-            Rnrmtp1 = BaselineExample_inf.Rfree / GrowFactp1 
+            Rnrmtp1 = BaselineExample_inf.Rfree / GrowFactp1
             btp1 = Rnrmtp1*a
             mtp1 = btp1 + BaselineExample_inf.TranShkDstn[0][1][i]
             part_expconsumption = BaselineExample_inf.TranShkDstn[0][0][i] * BaselineExample_inf.PermShkDstn[0][0][j]* GrowFactp1*float(BaselineExample_inf.cFunc[0](mtp1))
@@ -355,6 +387,8 @@ def exp_consumption(a):
 # In[ ]:
 
 
+
+
 # Calculate the expected consumption growth factor
 m1 = np.linspace(1,BaselineExample_inf.solution[0].mNrmSS,50) # m1 defines the plot range on the left of target m value (e.g. m <= target m)
 c_m1 = BaselineExample_inf.cFunc[0](m1)
@@ -363,12 +397,12 @@ exp_consumption_l1 = []
 for i in range(len(a1)):
     exp_consumption_tp1 = exp_consumption(a1[i])
     exp_consumption_l1.append(exp_consumption_tp1)
-    
-# growth1 defines the values of expected consumption growth factor when m is less than target m 
-growth1 = np.array(exp_consumption_l1)/c_m1  
+
+# growth1 defines the values of expected consumption growth factor when m is less than target m
+growth1 = np.array(exp_consumption_l1)/c_m1
 
 # m2 defines the plot range on the right of target m value (e.g. m >= target m)
-m2 = np.linspace(BaselineExample_inf.solution[0].mNrmSS,1.9,50) 
+m2 = np.linspace(BaselineExample_inf.solution[0].mNrmSS,1.9,50)
 
 c_m2 = BaselineExample_inf.cFunc[0](m2)
 a2 = m2-c_m2
@@ -376,19 +410,21 @@ exp_consumption_l2 = []
 for i in range(len(a2)):
     exp_consumption_tp1 = exp_consumption(a2[i])
     exp_consumption_l2.append(exp_consumption_tp1)
-    
-# growth 2 defines the values of expected consumption growth factor when m is bigger than target m 
-growth2 = np.array(exp_consumption_l2)/c_m2  
+
+# growth 2 defines the values of expected consumption growth factor when m is bigger than target m
+growth2 = np.array(exp_consumption_l2)/c_m2
 
 
 # In[ ]:
 
 
+
+
 # Define a function to construct the arrows on the consumption growth rate function
-def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                           hl=0.01, hw=3, c='black'): 
-    ''' 
+def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                           hl=0.01, hw=3, c='black'):
+    '''
     The function is used to plot arrows given the data x and y.
-    
+
     Input:
         narrs  :  Number of arrows that will be drawn along the curve
 
@@ -397,18 +433,18 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
 
         direc  :  can be 'pos' or 'neg' to select direction of the arrows
 
-        hl     :  length of the arrow head 
+        hl     :  length of the arrow head
 
-        hw     :  width of the arrow head        
+        hw     :  width of the arrow head
 
-        c      :  color of the edge and face of the arrow head  
+        c      :  color of the edge and face of the arrow head
     '''
 
     # r is the distance spanned between pairs of points
     r = [0]
     for i in range(1,len(x)):
-        dx = x[i]-x[i-1] 
-        dy = y[i]-y[i-1] 
+        dx = x[i]-x[i-1]
+        dy = y[i]-y[i-1]
         r.append(np.sqrt(dx*dx+dy*dy))
     r = np.array(r)
 
@@ -422,7 +458,7 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
     aspace = r.sum() / narrs
 
     if direc is 'neg':
-        dspace = -1.*abs(dspace) 
+        dspace = -1.*abs(dspace)
     else:
         dspace = abs(dspace)
 
@@ -432,7 +468,7 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
                                  # an arrow at the beginning of the curve
 
     ndrawn = 0
-    rcount = 1 
+    rcount = 1
     while arrowPos < r.sum() and ndrawn < narrs:
         x1,x2 = x[rcount-1],x[rcount]
         y1,y2 = y[rcount-1],y[rcount]
@@ -443,11 +479,11 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
         arrowData.append((ax,ay,theta))
         ndrawn += 1
         arrowPos+=aspace
-        while arrowPos > rtot[rcount+1]: 
+        while arrowPos > rtot[rcount+1]:
             rcount+=1
             if arrowPos > rtot[-1]:
                 break
-                
+
     for ax,ay,theta in arrowData:
         # use aspace as a guide for size and length of things
         # scaling factors were chosen by experimenting a bit
@@ -458,15 +494,15 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
         dy1 = -1.*np.cos(theta)*hl/2. + ay
 
         if direc is 'neg' :
-            ax0 = dx0 
+            ax0 = dx0
             ay0 = dy0
             ax1 = dx1
-            ay1 = dy1 
+            ay1 = dy1
         else:
-            ax0 = dx1 
+            ax0 = dx1
             ay0 = dy1
             ax1 = dx0
-            ay1 = dy0 
+            ay1 = dy0
 
         axes.annotate('', xy=(ax0, ay0), xycoords='data',
                 xytext=(ax1, ay1), textcoords='data',
@@ -474,6 +510,8 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
 
 
 # In[ ]:
+
+
 
 
 # Plot consumption growth as a function of market resources
@@ -498,11 +536,11 @@ ax.plot(m2,growth2,color="black")
 arrowplot(ax, m1,growth1)
 arrowplot(ax, m2,growth2, direc='pos')
 
-# Plot the target m 
+# Plot the target m
 ax.plot([BaselineExample_inf.solution[0].mNrmSS,BaselineExample_inf.solution[0].mNrmSS],[0,1.4],color="black",linestyle="--")
 ax.set_xlim(1,2.05)
 ax.set_ylim(0.98,1.08)
-ax.text(1,1.082,"Growth Factor",fontsize = 26,fontweight='bold') 
+ax.text(1,1.082,"Growth Factor",fontsize = 26,fontweight='bold')
 ax.text(2.055,0.98,"$m_{t}$",fontsize = 26,fontweight='bold')
 ax.text(1.9,1.01,"$\mathrm{\mathsf{E}}_{t}[c_{t+1}/c_{t}]$",fontsize = 22,fontweight='bold')
 ax.text(BaselineExample_inf.solution[0].mNrmSS,0.975, r'$\check{m}$', fontsize = 26,fontweight='bold')
@@ -521,24 +559,29 @@ fig.savefig(os.path.join(Figures_HARK_dir, 'cGroTargetFig.svg'))
 
 # We define two useful variables: lower bound of $\kappa$ (marginal propensity to consume) and limit of $h$ (Human wealth), along with some functions such as perfect foresight consumption function ($\bar{c}(m)$), $\bar{\bar c}(m)$ and $\underline{c}(m)$.
 
+
 # In[ ]:
 
 
-# Define k_lower, h_inf and perfect foresight consumption function, upper bound of consumption function and lower 
+
+
+# Define k_lower, h_inf and perfect foresight consumption function, upper bound of consumption function and lower
 # bound of consumption function.
 k_lower = 1.0-(BaselineExample_inf.Rfree**(-1.0))*(BaselineExample_inf.Rfree*BaselineExample_inf.DiscFac)**(1.0/BaselineExample_inf.CRRA)
 h_inf = (1.0/(1.0-BaselineExample_inf.PermGroFac[0]/BaselineExample_inf.Rfree))
 conFunc_PF = lambda m: (h_inf -1)* k_lower + k_lower*m
 conFunc_upper = lambda m: (1 - BaselineExample_inf.UnempPrb ** (1.0/BaselineExample_inf.CRRA)*(BaselineExample_inf.Rfree*BaselineExample_inf.DiscFac)**(1.0/BaselineExample_inf.CRRA)/BaselineExample_inf.Rfree)*m
 conFunc_lower = lambda m: (1 -(BaselineExample_inf.Rfree*BaselineExample_inf.DiscFac)**(1.0/BaselineExample_inf.CRRA)/BaselineExample_inf.Rfree) * m
-intersect_m = ((h_inf-1)* k_lower)/((1 - BaselineExample_inf.UnempPrb 
+intersect_m = ((h_inf-1)* k_lower)/((1 - BaselineExample_inf.UnempPrb
             **(1.0/BaselineExample_inf.CRRA)*(BaselineExample_inf.Rfree*BaselineExample_inf.DiscFac)**(1.0/BaselineExample_inf.CRRA)/BaselineExample_inf.Rfree)-k_lower)
 
 
 # In[ ]:
 
 
-# Plot consumption function and its bounds 
+
+
+# Plot consumption function and its bounds
 x1 = np.linspace(0,25,1000)
 x3 = np.linspace(0,intersect_m,300)
 x4 = np.linspace(intersect_m,25,700)
@@ -558,7 +601,7 @@ plt.plot(x3,cfunc_PF_1 , color="black",linestyle="--")
 plt.tick_params(labelbottom=False, labelleft=False,left='off',right='off',bottom='off',top='off')
 plt.xlim(0,25)
 plt.ylim(0,1.12*conFunc_PF(25))
-plt.text(0,1.12*conFunc_PF(25)+0.05,"$c$",fontsize = 22)    
+plt.text(0,1.12*conFunc_PF(25)+0.05,"$c$",fontsize = 22)
 plt.text(25+0.1,0,"$m$",fontsize = 22)
 plt.text(2.5,1,r'$c(m)$',fontsize = 22,fontweight='bold')
 plt.text(6,5,r'$\overline{\overline c}(m)= \overline{\kappa}m = (1-\wp^{1/\rho}\Phi_{R})m$',fontsize = 22,fontweight='bold')
@@ -580,7 +623,10 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'cFuncBounds.svg'))
 
 # This figure shows the $\mathrm{\mathbb{E}}_{t}[\Delta m_{t+1}]$ and consumption function $c(m_{t})$, along with the intrsection of these two functions, which defines the target value of $m$
 
+
 # In[ ]:
+
+
 
 
 # This just plots objects that have already been constructed
@@ -595,7 +641,7 @@ plt.xlim(0,3)
 plt.ylim(0,1.45)
 plt.plot([BaselineExample_inf.solution[0].mNrmSS, BaselineExample_inf.solution[0].mNrmSS],[0,2.5],color="black",linestyle="--")
 plt.tick_params(labelbottom=False, labelleft=False,left='off',right='off',bottom='off',top='off')
-plt.text(0,1.47,r"$c$",fontsize = 26)    
+plt.text(0,1.47,r"$c$",fontsize = 26)
 plt.text(3.02,0,r"$m$",fontsize = 26)
 plt.text(2.3,0.95,r'$\mathrm{\mathsf{E}}[\Delta m_{t+1}] = 0$',fontsize = 22,fontweight='bold')
 plt.text(2.3,1.1,r"$c(m_{t})$",fontsize = 22,fontweight='bold')
@@ -610,7 +656,10 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'cRatTargetFig.svg'))
 
 # ### Upper and Lower Limits of the Marginal Propensity to Consume
 
+
 # In[ ]:
+
+
 
 
 # The last figure shows the upper and lower limits of the MPC
@@ -643,4 +692,3 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.png'))
 plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.jpg'))
 plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.pdf'))
 plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.svg'))
-
