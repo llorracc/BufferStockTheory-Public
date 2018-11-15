@@ -2,7 +2,7 @@
 # ---
 # jupyter:
 #   '@webio':
-#     lastCommId: 49dc3e92a7cf49d3aba7e67143a65bb5
+#     lastCommId: 8fe9f727d318465c80d37929af5fb06a
 #     lastKernelId: f65d24a7-4c4a-40b8-934b-b5129e476534
 #   jupytext:
 #     text_representation:
@@ -445,12 +445,9 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
     # r is the distance spanned between pairs of points
     r = np.sqrt(np.diff(x)**2+np.diff(y)**2)
     r = np.insert(r, 0, 0.0)
-
+    
     # rtot is a cumulative sum of r, it's used to save time
-    rtot = []
-    for i in range(len(r)):
-        rtot.append(r[0:i].sum())
-    rtot.append(r.sum())
+    rtot = np.cumsum(r)
 
     # based on narrs set the arrow spacing
     aspace = r.sum() / narrs
@@ -486,10 +483,10 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
         # use aspace as a guide for size and length of things
         # scaling factors were chosen by experimenting a bit
 
-        dx0 = np.sin(theta)*hl/2. + ax
-        dy0 = np.cos(theta)*hl/2. + ay
-        dx1 = -1.*np.sin(theta)*hl/2. + ax
-        dy1 = -1.*np.cos(theta)*hl/2. + ay
+        dx0 = np.sin(theta)*hl/2.0 + ax
+        dy0 = np.cos(theta)*hl/2.0 + ay
+        dx1 = -1.*np.sin(theta)*hl/2.0 + ax
+        dy1 = -1.*np.cos(theta)*hl/2.0 + ay
 
         if direc is 'neg' :
             ax0 = dx0
