@@ -2,7 +2,7 @@
 # ---
 # jupyter:
 #   '@webio':
-#     lastCommId: 8fe9f727d318465c80d37929af5fb06a
+#     lastCommId: 04aaaa23528e412e827c751534bd4e0a
 #     lastKernelId: f65d24a7-4c4a-40b8-934b-b5129e476534
 #   jupytext:
 #     text_representation:
@@ -32,7 +32,7 @@
 
 # # Theoretical Foundations of Buffer Stock Saving
 #
-# This notebook uses the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit to reproduce all of the figures in the paper [Theoretical Foundations of Buffer Stock Saving](http://econ.jhu.edu/people/ccarroll/papers/BufferStockTheory). 
+# This notebook uses the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit to reproduce all of the figures in the paper [Theoretical Foundations of Buffer Stock Saving](http://econ.jhu.edu/people/ccarroll/papers/BufferStockTheory).
 
 # For instructions on how to install the [Econ-ARK/HARK](https://github.com/econ-ark/hark) toolkit, please refer to II. QUICK START GUIDE in [Heterogeneous Agents Resources and toolKit (HARK)](https://github.com/econ-ark/HARK/blob/master/README.md). Briefly, the recommended installation method is running `pip install econ-ark` in your terminal command line (MacOSX or Linux) or at the Windows command prompt (after installing python and pip for Windows).
 
@@ -378,16 +378,14 @@ def exp_consumption(a):
     Returns:
        sum(part_expconsump_l): next period's expected consumption
     '''
-    part_expconsump_l = []
-    for i in range(len(BaselineExample_inf.TranShkDstn[0][0])):
-        for j in range(len(BaselineExample_inf.PermShkDstn[0][0])):
-            GrowFactp1 = BaselineExample_inf.PermGroFac[0]* BaselineExample_inf.PermShkDstn[0][1][j]
-            Rnrmtp1 = BaselineExample_inf.Rfree / GrowFactp1
-            btp1 = Rnrmtp1*a
-            mtp1 = btp1 + BaselineExample_inf.TranShkDstn[0][1][i]
-            part_expconsumption = BaselineExample_inf.TranShkDstn[0][0][i] * BaselineExample_inf.PermShkDstn[0][0][j]* GrowFactp1*float(BaselineExample_inf.cFunc[0](mtp1))
-            part_expconsump_l.append(part_expconsumption)
-    return sum(part_expconsump_l)
+    GrowFactp1 = BaselineExample_inf.PermGroFac[0]* BaselineExample_inf.PermShkDstn[0][1]
+    Rnrmtp1 = BaselineExample_inf.Rfree / GrowFactp1
+    btp1 = Rnrmtp1*a
+    mtp1 = np.expand_dims(btp1, axis=1) + BaselineExample_inf.TranShkDstn[0][1]
+    part_expconsumption = GrowFactp1*BaselineExample_inf.cFunc[0](mtp1).T
+    part_expconsumption = np.dot(part_expconsumption, BaselineExample_inf.PermShkDstn[0][0])
+    expconsumption = np.dot(part_expconsumption, BaselineExample_inf.TranShkDstn[0][0])
+    return expconsumption
 
 
 # %%
@@ -445,7 +443,7 @@ def arrowplot(axes, x, y, narrs=15, dspace=0.5, direc='neg',                    
     # r is the distance spanned between pairs of points
     r = np.sqrt(np.diff(x)**2+np.diff(y)**2)
     r = np.insert(r, 0, 0.0)
-    
+
     # rtot is a cumulative sum of r, it's used to save time
     rtot = np.cumsum(r)
 
@@ -674,3 +672,9 @@ plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.png'))
 plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.jpg'))
 plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.pdf'))
 plt.savefig(os.path.join(Figures_HARK_dir, 'MPCLimits.svg'))
+
+# %%
+
+
+# %%
+
